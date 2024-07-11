@@ -13,6 +13,7 @@ import com.example.dictionary.DTO.DictionaryView;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -24,29 +25,38 @@ public class Controller {
     private final DataProfile dataProfile;
 
     @GetMapping("/dictionaries")
-    public List<Dictionary> getDictonaries() {
-        return dictionaryService.getDictonaries();
+    public List<DictionaryView> getDictonaries() {
+        List<Dictionary> dictionaryList =  dictionaryService.getDictonaries();
+
+        return dictionaryList.stream()
+                .map(dictionaryProfile::dictionaryToDictionaryView)
+                .collect(Collectors.toList());
     }
 
-    @PostMapping("/dictionaries")
+    @PostMapping("/dictionary")
     public Dictionary postDictionary(@RequestBody DictionaryView dictionary) {
         var entity = dictionaryProfile.dictionaryViewToDictionary(dictionary);
         return dictionaryService.postDictionary(entity);
     }
 
-    @DeleteMapping("/dictionaries")
+    @DeleteMapping("/dictionary")
     public void deleteDictionary(@RequestParam String code) {
         dictionaryService.deleteDictionary(code);
     }
 
-//    @GetMapping("/dictionaries/records")
-//    public List<Data> getDictonaryData(String code) {
-//        return dataService.getDictonaryData(code);
-//    }
+    @GetMapping("/dictionary/records")
+    public List<DataView> getDictonaryData(String code) {
+        List<Data> dataList = dataService.getDictonaryData(code);
 
-    @PostMapping("/dictionaries/records")
-    public Data postData(@RequestBody DataView data) {
-        var entity = dataProfile.dataViewToData(data);
-        return dataService.postData(entity);
+        return dataList.stream()
+                .map(dataProfile::dataToDataView)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("/dictionary/record")
+    public DataView postData(@RequestBody DataView data) {
+        return dataProfile.dataToDataView(
+                dataService.postData(data)
+        );
     }
 }

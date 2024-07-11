@@ -6,17 +6,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DataProfile {
-    public DataView dataToDataView(Data dictionary){
+    public DataView dataToDataView(Data data){
         var view = new DataView();
-        view.setCode(dictionary.getCode());
-        view.setValue(dictionary.getValue());
+        view.setCode(data.getCode());
+        view.setValue(data.getValue());
+        view.setCode(data.getCode());
         return view;
     }
 
-    public Data dataViewToData(DataView dictionary){
+    public Data dataViewToData(DataView data){
         var entity = new Data();
-        entity.setCode(dictionary.getCode());
-        entity.setValue(dictionary.getValue());
+        entity.setCode(data.getCode());
+        entity.setValue(data.getValue());
         return entity;
     }
 }

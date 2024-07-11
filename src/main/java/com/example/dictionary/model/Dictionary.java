@@ -14,7 +14,7 @@ public class Dictionary {
     @Column(nullable = false, unique = true)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, unique = true, length = 50)
     private String code;
 
     @Column(nullable = false, length = 50)
