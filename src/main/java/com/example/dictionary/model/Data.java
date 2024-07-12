@@ -2,14 +2,12 @@ package com.example.dictionary.model;
 
 import jakarta.persistence.*;
 
-import java.util.UUID;
-import lombok.*;
-
 @lombok.Data
 @Entity
 public class Data {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "data_seq_gen")
+    @SequenceGenerator(name = "data_seq_gen", sequenceName = "data_seq", allocationSize = 1)
     @Column(nullable = false, unique = true)
     private Long id;
 

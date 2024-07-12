@@ -10,7 +10,7 @@ public class DataProfile {
         var view = new DataView();
         view.setCode(data.getCode());
         view.setValue(data.getValue());
-        view.setCode(data.getCode());
+        view.setDictionaryCode(data.getDictionary().getCode());
         return view;
     }
 

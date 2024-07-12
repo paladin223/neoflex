@@ -3,14 +3,13 @@ package com.example.dictionary.model;
 import jakarta.persistence.*;
 
 import java.util.Set;
-import java.util.UUID;
-import lombok.*;
 
 @lombok.Data
 @Entity
 public class Dictionary {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dictionary_seq_gen")
+    @SequenceGenerator(name = "dictionary_seq_gen", sequenceName = "dictionary_seq", allocationSize = 1)
     @Column(nullable = false, unique = true)
     private Long id;
 
